@@ -1,6 +1,5 @@
 package lab3paradigmas;
 
-import javax.sound.midi.Soundbank;
 import java.util.Scanner;
 
 /**
@@ -11,13 +10,13 @@ public class Menu{
     public static void main(String[] args){
 
         Scanner input= new Scanner(System.in);
-        int opcion=0;
+        int opcion;
         System.out.println("Bienvenido al sistema de preguntas y respuestas\n1)Iniciar Sesión\n2)Registrarse\n3)Salir");
         System.out.println("Ingrese su opción:");
         opcion=input.nextInt();
 
         Usuario usuario;
-        String user="", pass="";
+        String user="", clave;
 
         switch (opcion) {
             case 1:
@@ -35,9 +34,9 @@ public class Menu{
                 
                 Scanner passInput= new Scanner(System.in);
                 System.out.println("\nIngrese su contraseña: ");
-                pass=passInput.nextLine();
+                clave=passInput.nextLine();
                 
-                usuario=new Usuario(user,pass,0);
+                usuario=new Usuario(user,clave,0);
                 System.out.println("Usuario creado con éxito");
 
                 usuario.imprimirDatos();
