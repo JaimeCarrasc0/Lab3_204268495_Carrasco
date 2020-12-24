@@ -32,4 +32,33 @@ public class Pregunta {
         this.recompensa=recompensa;
         this.respuestas=respuestas;
     }
+
+    public int getID() {
+        return ID;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getPregunta() {
+        return pregunta;
+    }
+
+    public Usuario getAutor() {
+        return autor;
+    }
+
+    public boolean getEstado(){
+        return estado;
+    }
+
+    public int getRecompensa() {
+        return recompensa;
+    }
+
+    public ArrayList<Respuesta> getRespuestas() {
+        return respuestas;
+    }
+
 }
