@@ -19,4 +19,16 @@ public class Respuesta {
         this.respuesta=contenido;
     }
 
+    public int getID() {
+        return ID;
+    }
+
+    public Usuario getAutor() {
+        return autor;
+    }
+
+    public String getRespuesta() {
+        return respuesta;
+    }
+
 }
