@@ -11,4 +11,11 @@ public class Etiquetas {
         this.descripcion=desc;
     }
 
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public ArrayList<String> getDescripcion() {
+        return descripcion;
+    }
 }
