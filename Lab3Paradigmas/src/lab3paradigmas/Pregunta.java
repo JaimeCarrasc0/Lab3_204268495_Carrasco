@@ -1,6 +1,7 @@
 package lab3paradigmas;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Pregunta {
     /*
@@ -17,6 +18,7 @@ public class Pregunta {
     private int ID;
     private String titulo;
     private String pregunta;
+    private Date fecha;
     //private fecha; debo averiguar como hacer esto xD
     private Usuario autor;
     private boolean estado; //True=pregunta abierta, False=pregunta cerrada
@@ -27,6 +29,7 @@ public class Pregunta {
         this.ID=id;
         this.titulo=titulo;
         this.pregunta=pregunta;
+        this.fecha=new Date();
         this.autor=autor;
         this.estado=estado;
         this.recompensa=recompensa;

@@ -1,5 +1,7 @@
 package lab3paradigmas;
 
+import java.util.Date;
+
 public class Respuesta {
     /*
      Considere incluir un ID (único y autoincremental)
@@ -10,12 +12,14 @@ public class Respuesta {
 
     private int ID;
     private Usuario autor;
+    private Date fecha;
     //private fecha; debo averiguar como hacer esto xD
     private String respuesta;
 
     public Respuesta(int id, Usuario autor, String contenido){
         this.ID=id;
         this.autor=autor;
+        this.fecha=new Date();
         this.respuesta=contenido;
     }
 
@@ -25,6 +29,10 @@ public class Respuesta {
 
     public Usuario getAutor() {
         return autor;
+    }
+
+    public Date getFecha() {
+        return fecha;
     }
 
     public String getRespuesta() {
