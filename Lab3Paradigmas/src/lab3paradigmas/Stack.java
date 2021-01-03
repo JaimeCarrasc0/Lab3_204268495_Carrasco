@@ -42,4 +42,19 @@ public class Stack {
     public void registrarUsuario(Usuario nuevoUsuario) {
         this.usuarios.add(nuevoUsuario);
     }
+
+    public boolean login(String user, String pass) {
+        int i;
+        for (i = 0; i < usuarios.size(); i++) {
+            if (user.equals(usuarios.get(i).getUser())) {
+                if (pass.equals(usuarios.get(i).getPass())) {
+                    return true;
+                } else {
+                    System.out.println("Clave incorrecta, intentelo de nuevo...");
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
 }

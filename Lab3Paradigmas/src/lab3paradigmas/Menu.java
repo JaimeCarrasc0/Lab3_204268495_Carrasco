@@ -9,12 +9,11 @@ import java.util.Scanner;
  */
 public class Menu{
     public static void main(String[] args){
-        ArrayList<Respuesta> respuestas1 = new ArrayList<Respuesta>();
-        /*
-        ArrayList<Respuesta> respuestas2 = new ArrayList<Respuesta>();
-        ArrayList<Respuesta> respuestas3 = new ArrayList<Respuesta>();
-        ArrayList<Respuesta> respuestas4 = new ArrayList<Respuesta>();
-        ArrayList<Respuesta> respuestas5 = new ArrayList<Respuesta>();*/
+        ArrayList<Respuesta> respuestas1 = new ArrayList<>();
+        ArrayList<Respuesta> respuestas2 = new ArrayList<>();
+        ArrayList<Respuesta> respuestas3 = new ArrayList<>();
+        ArrayList<Respuesta> respuestas4 = new ArrayList<>();
+        ArrayList<Respuesta> respuestas5 = new ArrayList<>();
 
         Usuario user1=new Usuario("Julián","Alonso",3);
         Usuario user2=new Usuario("Jaime","Alejandro",5);
@@ -27,21 +26,51 @@ public class Menu{
         respuestas1.add(answer1);
         respuestas1.add(answer2);
 
-        /*Respuesta answer3=new Respuesta();
-        Respuesta answer4=new Respuesta();
-        Respuesta answer5=new Respuesta();
-        Respuesta answer6=new Respuesta();
-        Respuesta answer7=new Respuesta();
-        Respuesta answer8=new Respuesta();
-        Respuesta answer9=new Respuesta();
-        Respuesta answer10=new Respuesta();*/
+        Respuesta answer3=new Respuesta(0,user4,"Creo que debes usar display");
+        Respuesta answer4=new Respuesta(1,user1,"Usa display");
+
+        respuestas2.add(answer3);
+        respuestas2.add(answer4);
+
+        Respuesta answer5=new Respuesta(0,user1,"debes usar %c y al printf como parámetros secundarios pones el ascii del caracter que quieres");
+        Respuesta answer6=new Respuesta(1,user2,"usa ascii");
+
+        respuestas3.add(answer5);
+        respuestas3.add(answer6);
+
+        Respuesta answer7=new Respuesta(0,user2,"");
+        Respuesta answer8=new Respuesta(1,user3,"");
+
+        respuestas4.add(answer7);
+        respuestas4.add(answer8);
+
+        Respuesta answer9=new Respuesta(0,user2,"Usa print(<lo que quieres imprimir>)");
+        Respuesta answer10=new Respuesta(1,user3,"Usa print");
+
+        respuestas5.add(answer9);
+        respuestas5.add(answer10);
 
         Pregunta question1=new Pregunta(0,"Ayuda con python","Cómo puedo ingresar datos?",user1,true,2, respuestas1);
+        Pregunta question2=new Pregunta(1,"Ayuda con Scheme","Como puedo imprimir por pantalla en scheme?",user2,true,3,respuestas2);
+        Pregunta question3=new Pregunta(2,"Ayuda con C","Alguien sabe como puedo hacer que C utilice tildes?",user4,false,10,respuestas3);
+        Pregunta question4=new Pregunta(3,"Spotify en python","Como puedo obtener los datos de una playlist de spotify con python?",user1,true,1,respuestas4);
+        Pregunta question5=new Pregunta(4,"Cómo mostrar por pantalla en python","Hola como puedo imprimir datos en python?",user4,false,5,respuestas5);
+
+        ArrayList<Usuario> usuarios= new ArrayList<>();
+        usuarios.add(user1);
+        usuarios.add(user2);
+        usuarios.add(user3);
+        usuarios.add(user4);
+
+        ArrayList<Pregunta> preguntas= new ArrayList<>();
+        preguntas.add(question1);
+        preguntas.add(question2);
+        preguntas.add(question3);
+        preguntas.add(question4);
+        preguntas.add(question5);
 
 
-        ArrayList<Usuario> usuarios= new ArrayList<Usuario>();
-        ArrayList<Pregunta> preguntas= new ArrayList<Pregunta>();
-        ArrayList<Usuario> activos= new ArrayList<Usuario>();
+        ArrayList<Usuario> activos= new ArrayList<>();
 
         Stack stack=new Stack(usuarios,preguntas,activos);
 
@@ -52,16 +81,41 @@ public class Menu{
         opcion=input.nextInt();
 
         Usuario usuario;
-        String user="", clave;
+        String user="";
+        String clave;
+        Scanner userInput= new Scanner(System.in);
 
         switch (opcion) {
             case 1:
+                //Scanner userInput= new Scanner(System.in);
+                System.out.println("\nIngrese su nombre de usuario: ");
+                user=userInput.nextLine();
+                boolean aux=false;
 
+                while (aux==false) {
+                    if (stack.existeUsuario(user)) {
+                        Scanner passInput = new Scanner(System.in);
+                        System.out.println("Ingrese su contraseña: ");
+                        clave = passInput.nextLine();
+
+                        aux = stack.login(user, clave);
+                        if (aux) {
+                            System.out.println("Inicio de sesión exitoso!");
+                            break;
+                        } else {
+                            clave="";
+                            System.out.println("Inicio de sesión incorrecto\n");
+                        }
+                    } else {
+                        System.out.println("Usuario no existe, intente nuevamente\nIngrese su nombre de usuario: ");
+                        user=userInput.nextLine();
+                    }
+                }
                 //verificar inicio de sesión
                 break;
 
             case 2:
-                Scanner userInput= new Scanner(System.in);
+                //Scanner userInput= new Scanner(System.in);
                 System.out.println("\nIngrese un nombre de usuario: ");
                 user=userInput.nextLine();
 
@@ -83,7 +137,7 @@ public class Menu{
 
                 System.out.println("Usuario creado con éxito");
 
-                usuario.imprimirDatos();
+                //usuario.imprimirDatos();
 
 
                 break;
@@ -94,6 +148,7 @@ public class Menu{
 
             default:
                 System.out.println("Error, no existe esa opción\n");
+                break;
         }
 
 
@@ -107,14 +162,14 @@ public class Menu{
         /*
         ### SISTEMA DE PREGUNTAS Y RESPUESTAS ###
         ## Registrado como: User123 ##
-        Escoja su opciÃ³n:
+        Escoja su opción:
         1. Agregar nueva pregunta
         2. Responder pregunta
         3. Dar recompensa
         4. Aceptar respuesta
-        5. Cerrar sesiÃ³n
+        5. Cerrar sesión
         6. Salir del programa
-        INTRODUZCA SU OPCIÃ“N: _
+        INTRODUZCA SU OPCIÓN: _
         */
         opcion=input.nextInt();
 
