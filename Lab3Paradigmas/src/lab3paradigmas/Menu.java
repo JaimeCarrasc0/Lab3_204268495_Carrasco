@@ -1,5 +1,6 @@
 package lab3paradigmas;
 
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -50,11 +51,35 @@ public class Menu{
         respuestas5.add(answer9);
         respuestas5.add(answer10);
 
-        Pregunta question1=new Pregunta(0,"Ayuda con python","Cómo puedo ingresar datos?",user1,true,2, respuestas1);
-        Pregunta question2=new Pregunta(1,"Ayuda con Scheme","Como puedo imprimir por pantalla en scheme?",user2,true,3,respuestas2);
-        Pregunta question3=new Pregunta(2,"Ayuda con C","Alguien sabe como puedo hacer que C utilice tildes?",user4,false,10,respuestas3);
-        Pregunta question4=new Pregunta(3,"Spotify en python","Como puedo obtener los datos de una playlist de spotify con python?",user1,true,1,respuestas4);
-        Pregunta question5=new Pregunta(4,"Cómo mostrar por pantalla en python","Hola como puedo imprimir datos en python?",user4,false,5,respuestas5);
+        ArrayList<String> auxTag=new ArrayList<>();
+        auxTag.add("Python");
+        ArrayList<String> auxDesc=new ArrayList<>();
+        auxDesc.add("Python es un lenguaje multiparadigmas, de tipeo bajo.");
+
+        Etiquetas tag1=new Etiquetas(auxTag,auxDesc);
+
+        auxTag.clear();
+        auxDesc.clear();
+
+        auxTag.add("Scheme");
+        auxDesc.add("Sheme es un lenguaje funcional, de tipeo bajo.");
+
+        Etiquetas tag2=new Etiquetas(auxTag,auxDesc);
+
+        auxTag.clear();
+        auxDesc.clear();
+
+        auxTag.add("C");
+        auxDesc.add("C es un lenguaje Imperativo, de tipeo alto.");
+
+        Etiquetas tag3=new Etiquetas(auxTag,auxDesc);
+
+
+        Pregunta question1=new Pregunta(0,"Ayuda con python",tag1,"Cómo puedo ingresar datos?",user1,true,2, respuestas1);
+        Pregunta question2=new Pregunta(1,"Ayuda con Scheme",tag2,"Como puedo imprimir por pantalla en scheme?",user2,true,3,respuestas2);
+        Pregunta question3=new Pregunta(2,"Ayuda con C",tag3,"Alguien sabe como puedo hacer que C utilice tildes?",user4,false,10,respuestas3);
+        Pregunta question4=new Pregunta(3,"Spotify en python",tag2,"Como puedo obtener los datos de una playlist de spotify con python?",user1,true,1,respuestas4);
+        Pregunta question5=new Pregunta(4,"Cómo mostrar por pantalla en python",tag2,"Hola como puedo imprimir datos en python?",user4,false,5,respuestas5);
 
         ArrayList<Usuario> usuarios= new ArrayList<>();
         usuarios.add(user1);
@@ -85,124 +110,131 @@ public class Menu{
         String clave;
         Scanner userInput= new Scanner(System.in);
 
-        switch (opcion) {
-            case 1:
-                //Scanner userInput= new Scanner(System.in);
-                System.out.println("\nIngrese su nombre de usuario: ");
-                user=userInput.nextLine();
-                boolean aux=false;
+        int key=1;
+        while (key==1){
+            switch (opcion) {
+                case 1:
+                    //Scanner userInput= new Scanner(System.in);
+                    System.out.println("\nIngrese su nombre de usuario: ");
+                    user = userInput.nextLine();
+                    boolean aux = false;
 
-                while (aux==false) {
-                    if (stack.existeUsuario(user)) {
-                        Scanner passInput = new Scanner(System.in);
-                        System.out.println("Ingrese su contraseña: ");
-                        clave = passInput.nextLine();
+                    while (aux == false) {
+                        if (stack.existeUsuario(user)) {
+                            Scanner passInput = new Scanner(System.in);
+                            System.out.println("Ingrese su contraseña: ");
+                            clave = passInput.nextLine();
 
-                        aux = stack.login(user, clave);
-                        if (aux) {
-                            System.out.println("Inicio de sesión exitoso!");
-                            break;
+                            aux = stack.login(user, clave);
+                            if (aux) {
+                                System.out.println("Inicio de sesión exitoso!");
+                                break;
+                            } else {
+                                clave = "";
+                                System.out.println("Inicio de sesión incorrecto\n");
+                            }
                         } else {
-                            clave="";
-                            System.out.println("Inicio de sesión incorrecto\n");
+                            System.out.println("Usuario no existe, intente nuevamente\nIngrese su nombre de usuario: ");
+                            user = userInput.nextLine();
                         }
-                    } else {
-                        System.out.println("Usuario no existe, intente nuevamente\nIngrese su nombre de usuario: ");
-                        user=userInput.nextLine();
                     }
-                }
-                //verificar inicio de sesión
-                break;
-
-            case 2:
-                //Scanner userInput= new Scanner(System.in);
-                System.out.println("\nIngrese un nombre de usuario: ");
-                user=userInput.nextLine();
-
-                if (stack.existeUsuario(user)){
-                    System.out.println("El nombre de usuario ya existe.\nInicie sesión o Registrese con otro nombre.");
-                    break;
-                }
-                //verificar si existe usuario
-                //si no existe el usuario, crearlo
-
-                
-                Scanner passInput= new Scanner(System.in);
-                System.out.println("\nIngrese su contraseña: ");
-                clave=passInput.nextLine();
-                
-                usuario=new Usuario(user,clave,0);
-
-                stack.registrarUsuario(usuario);
-
-                System.out.println("Usuario creado con éxito");
-
-                //usuario.imprimirDatos();
-
-
-                break;
-
-            case 3:
-                System.exit(0);
-                break;
-
-            default:
-                System.out.println("Error, no existe esa opción\n");
-                break;
-        }
-
-
-
-
-
-
-        /*                                                                aquÃ­ â†“ deberÃ­a ir el usuario que estÃ¡ utilizando la app*/
-        System.out.println("### SISTEMA DE PREGUNTAS Y RESPUESTAS ###\n## Registrado como:"+ user + " ##\nEscoja su opciÃ³n:\n1. Agregar nueva pregunta\n2. Responder pregunta\n3. Dar recompensa\n4. Aceptar respuesta\n5. Cerrar sesiÃ³n\n6. Salir del programa\n");
-        System.out.println("INTRODUZCA SU OPCIÃ“N: ");
-        /*
-        ### SISTEMA DE PREGUNTAS Y RESPUESTAS ###
-        ## Registrado como: User123 ##
-        Escoja su opción:
-        1. Agregar nueva pregunta
-        2. Responder pregunta
-        3. Dar recompensa
-        4. Aceptar respuesta
-        5. Cerrar sesión
-        6. Salir del programa
-        INTRODUZCA SU OPCIÓN: _
-        */
-        opcion=input.nextInt();
-
-        switch(opcion){
-
-            case 1:
-                    /*Agregar nueva pregunta*/
+                    //verificar inicio de sesión
                     break;
 
-            case 2:
-                    /*Responder pregunta*/
+                case 2:
+                    //Scanner userInput= new Scanner(System.in);
+                    System.out.println("\nIngrese un nombre de usuario: ");
+                    user = userInput.nextLine();
+
+                    if (stack.existeUsuario(user)) {
+                        System.out.println("El nombre de usuario ya existe.\nInicie sesión o Registrese con otro nombre.");
+                        break;
+                    }
+                    //verificar si existe usuario
+                    //si no existe el usuario, crearlo
+
+
+                    Scanner passInput = new Scanner(System.in);
+                    System.out.println("\nIngrese su contraseña: ");
+                    clave = passInput.nextLine();
+
+                    usuario = new Usuario(user, clave, 0);
+
+                    stack.registrarUsuario(usuario);
+
+                    System.out.println("Usuario creado con éxito");
+
+                    //usuario.imprimirDatos();
+
+
                     break;
 
-            case 3:
-                    /*Dar recompensa*/
-                    break;
-
-            case 4:
-                    /*Aceptar respuesta*/
-                    break;
-
-            case 5:
-                    /*Cerrar SesiÃ³n*/
-                    break;
-
-            case 6:
-                    /*Salir del programa*/
+                case 3:
+                    key=0;
                     System.exit(0);
                     break;
 
-            default:
+                default:
+                    System.out.println("Error, no existe esa opción\n");
+                    break;
+            }
+
+
+
+
+
+
+            /*                                                                aquÃ­ â†“ deberÃ­a ir el usuario que estÃ¡ utilizando la app*/
+            System.out.println("### SISTEMA DE PREGUNTAS Y RESPUESTAS ###\n## Registrado como:" + user + " ##\nEscoja su opción:\n1. Agregar nueva pregunta\n2. Responder pregunta\n3. Dar recompensa\n4. Aceptar respuesta\n5. Cerrar sesión\n6. Salir del programa\n");
+            System.out.println("INTRODUZCA SU OPCIÓN: ");
+            /*
+            ### SISTEMA DE PREGUNTAS Y RESPUESTAS ###
+            ## Registrado como: User123 ##
+            Escoja su opción:
+            1. Agregar nueva pregunta
+            2. Responder pregunta
+            3. Dar recompensa
+            4. Aceptar respuesta
+            5. Cerrar sesión
+            6. Salir del programa
+            INTRODUZCA SU OPCIÓN: _
+            */
+            opcion = input.nextInt();
+
+            switch (opcion) {
+
+                case 1:
+                    /*Agregar nueva pregunta*/
+                    break;
+
+                case 2:
+                    /*Responder pregunta*/
+                    break;
+
+                case 3:
+                    /*Dar recompensa*/
+                    break;
+
+                case 4:
+                    /*Aceptar respuesta*/
+                    break;
+
+                case 5:
+                    /*Cerrar SesiÃ³n*/
+                    key=0;
+                    stack.logout(user);
+                    break;
+
+                case 6:
+                    /*Salir del programa*/
+                    key=0;
+                    System.exit(0);
+                    break;
+
+                default:
                     System.out.println("Error, no existe esa opciÃ³n\n");
                     break;
+            }
         }
     }
 }

@@ -17,6 +17,7 @@ public class Pregunta {
     */
     private int ID;
     private String titulo;
+    private Etiquetas tags;
     private String pregunta;
     private Date fecha;
     //private fecha; debo averiguar como hacer esto xD
@@ -25,9 +26,10 @@ public class Pregunta {
     private int recompensa;
     private ArrayList<Respuesta> respuestas;
 
-    public Pregunta(int id, String titulo, String pregunta, Usuario autor, boolean estado, int recompensa, ArrayList<Respuesta> respuestas){
+    public Pregunta(int id, String titulo, Etiquetas etiquetas,String pregunta, Usuario autor, boolean estado, int recompensa, ArrayList<Respuesta> respuestas){
         this.ID=id;
         this.titulo=titulo;
+        this.tags=etiquetas;
         this.pregunta=pregunta;
         this.fecha=new Date();
         this.autor=autor;
