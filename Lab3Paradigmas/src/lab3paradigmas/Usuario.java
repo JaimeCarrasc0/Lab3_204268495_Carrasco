@@ -1,7 +1,7 @@
 package lab3paradigmas;
 
 /**
- *
+ * Esta clase define al tda usuario, esta contiene los datos relevantes del usuario
  * @author Jaime Carrasco
  */
 public class Usuario{

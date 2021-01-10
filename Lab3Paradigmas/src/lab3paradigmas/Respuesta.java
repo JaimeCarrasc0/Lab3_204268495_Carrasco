@@ -2,6 +2,11 @@ package lab3paradigmas;
 
 import java.util.Date;
 
+/**
+ * Esta clase define a las respuestas de las preguntas
+ * @author Jaime Carrasco
+ */
+
 public class Respuesta {
     /*
      Considere incluir un ID (único y autoincremental)

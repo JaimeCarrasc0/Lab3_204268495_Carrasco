@@ -1,11 +1,13 @@
 package lab3paradigmas;
 
+import javax.swing.plaf.metal.MetalToolTipUI;
 import java.security.Key;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
- *
+ * Esta clase define al menú, este es el que representa la interacción del usuario con el programa.
  * @author Jaime Carrasco
  */
 public class Menu{
@@ -56,6 +58,7 @@ public class Menu{
         ArrayList<String> auxDesc=new ArrayList<>();
         auxDesc.add("Python es un lenguaje multiparadigmas, de tipeo bajo.");
 
+
         Etiquetas tag1=new Etiquetas(auxTag,auxDesc);
 
         auxTag.clear();
@@ -73,6 +76,18 @@ public class Menu{
         auxDesc.add("C es un lenguaje Imperativo, de tipeo alto.");
 
         Etiquetas tag3=new Etiquetas(auxTag,auxDesc);
+
+        ArrayList<String> etiquetasStack=new ArrayList<>();
+        etiquetasStack.add("Python");
+        etiquetasStack.add("Scheme");
+        etiquetasStack.add("C");
+
+        ArrayList<String> descripcionEtiquetas=new ArrayList<>();
+        descripcionEtiquetas.add("Python es un lenguaje multiparadigmas, de tipeo bajo.");
+        descripcionEtiquetas.add("Sheme es un lenguaje funcional, de tipeo bajo.");
+        descripcionEtiquetas.add("C es un lenguaje Imperativo, de tipeo alto.");
+
+        Etiquetas tagStack = new Etiquetas(etiquetasStack,descripcionEtiquetas);
 
 
         Pregunta question1=new Pregunta(0,"Ayuda con python",tag1,"Cómo puedo ingresar datos?",user1,true,2, respuestas1);
@@ -98,7 +113,6 @@ public class Menu{
         ArrayList<Usuario> activos= new ArrayList<>();
 
         Stack stack=new Stack(usuarios,preguntas,activos);
-
         Scanner input= new Scanner(System.in);
         int opcion;
         System.out.println("Bienvenido al sistema de preguntas y respuestas\n1)Iniciar Sesión\n2)Registrarse\n3)Salir");
@@ -119,7 +133,7 @@ public class Menu{
                     user = userInput.nextLine();
                     boolean aux = false;
 
-                    while (aux == false) {
+                    while (!aux) {
                         if (stack.existeUsuario(user)) {
                             Scanner passInput = new Scanner(System.in);
                             System.out.println("Ingrese su contraseña: ");
@@ -205,6 +219,38 @@ public class Menu{
 
                 case 1:
                     /*Agregar nueva pregunta*/
+                    Scanner titleInput=new Scanner(System.in);
+                    Scanner questionInput= new Scanner(System.in);
+                    Scanner tagSelector=new Scanner(System.in);
+
+                    String titulo, pregunta;
+                    int ingreso=0;
+                    Etiquetas tags=new Etiquetas();
+
+
+                    System.out.println("Ingrese el título de la pregunta: ");
+                    titulo=titleInput.nextLine();
+                    System.out.println("Ingrese su pregunta: ");
+                    pregunta=questionInput.nextLine();
+
+                    System.out.println("Seleccione al menos 1 etiqueta para su pregunta\n");
+                    tagStack.imprimirTags();
+
+                    while(ingreso!=0 || tags.getTags().size()<tagStack.getTags().size()){
+                        System.out.println("Seleccione su etiqueta\n si no desea añadir más ingrese 0");
+                        ingreso=tagSelector.nextInt();
+                        if(ingreso!=0){
+                            tags.anadirTags(tagStack.getTags().get(ingreso-1),tagStack.getDescripcion().get(ingreso-1));
+                        }
+                        else {
+                            break;
+                        }
+                    }
+
+                    stack.ask(titulo,pregunta,tags);
+
+                    stack.imprimirPreguntas();
+
                     break;
 
                 case 2:
