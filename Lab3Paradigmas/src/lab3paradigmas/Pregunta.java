@@ -125,4 +125,6 @@ public class Pregunta {
     public void anadirRespuesta(Respuesta respuesta){
         this.respuestas.add(respuesta);
     }
+
+
 }

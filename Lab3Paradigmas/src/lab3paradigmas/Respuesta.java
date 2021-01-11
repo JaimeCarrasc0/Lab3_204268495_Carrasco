@@ -69,4 +69,5 @@ public class Respuesta {
         System.out.println("R #"+ID+"\tAutor: "+autor.getUser()+"\t Fecha: "+fecha);
         System.out.println("\tRespuesta:\n\t\t"+respuesta);
     }
+
 }

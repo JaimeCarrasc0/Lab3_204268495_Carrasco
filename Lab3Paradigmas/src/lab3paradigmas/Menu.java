@@ -305,6 +305,28 @@ public class Menu{
 
                 case 4:
                     /*Aceptar respuesta*/
+                    Scanner idPregInput =new Scanner(System.in);
+                    Scanner idResInput =new Scanner(System.in);
+                    int idPreg,idRes;
+                    Pregunta pregAux;
+                    Respuesta resAux;
+
+                    stack.imprimirPreguntas(stack.getActivos().get(stack.getActivos().size()-1));
+
+                    System.out.println("Ingrese el id de la pregunta: ");
+                    idPreg=idPregInput.nextInt();
+                    pregAux=stack.getPreguntas().get(idPreg);
+
+                    stack.imprimirRespuestas(pregAux);
+
+                    System.out.println("Ingrese el id de la respuesta que desea aceptar: ");
+                    idRes=idResInput.nextInt();
+
+                    resAux=pregAux.getRespuestas().get(idRes);
+                    //resAux.imprimirRespuestas();
+
+                    stack.accept(pregAux,resAux);
+
                     break;
 
                 case 5:

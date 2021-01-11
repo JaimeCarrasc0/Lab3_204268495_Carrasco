@@ -45,4 +45,8 @@ public class Usuario{
 	public int getReputacion(){
 		return reputacion;
 	}
+
+	public void anadirReputacion(int puntos){
+		this.reputacion+=puntos;
+	}
 }

@@ -24,6 +24,7 @@ public class Stack {
         this.usuarios = usuarios;
         this.preguntas = preguntas;
         this.activos = activos;
+        this.retenidos= new ArrayList<>();
     }
 
     /**
@@ -190,6 +191,54 @@ public class Stack {
 
     /**
      *
+     * @param autor
+     * @override
+     */
+    public void imprimirPreguntas(Usuario autor){
+        int i,j;
+        for(i=0;i<preguntas.size();i++){
+            if(preguntas.get(i).getAutor()==autor){
+                System.out.println("────────────────────────────────────────────────────────────────────");
+                System.out.println("ID #"+preguntas.get(i).getID());
+                System.out.println("Titulo: "+preguntas.get(i).getTitulo());
+                for(j=0;j<preguntas.get(i).getEtiquetas().getTags().size();j++){
+                    System.out.println("["+preguntas.get(i).getEtiquetas().getTags().get(j)+"]: "+preguntas.get(i).getEtiquetas().getDescripcion().get(j)+"\n");
+                }
+                System.out.println("Pregunta: "+preguntas.get(i).getPregunta() + "\t\tRecompensa: "+preguntas.get(i).getRecompensa());
+                System.out.println("Fecha consulta: "+preguntas.get(i).getFecha());
+
+                if(preguntas.get(i).getRespuestas().size()==0){
+                    System.out.println("Esta pregunta aún no tiene respuestas.");
+                }
+                /*else{
+                    System.out.println("Respuestas: ");
+                    for(j=0;j<preguntas.get(i).getRespuestas().size();j++){
+                        preguntas.get(i).getRespuestas().get(j).imprimirRespuestas();
+                    }
+                    //realizar print respuestas en clase respuestas xD
+                }*/
+                if (preguntas.get(i).getEstado()){
+                    System.out.println("Esta pregunta sigue abierta.");
+                }
+                else {
+                    System.out.println("Este hilo ya está cerrado");
+                }
+            }
+        }
+    }
+
+    public void imprimirRespuestas(Pregunta pregunta){
+        int i;
+        System.out.println("Respuestas: ");
+        for(i=0;i<pregunta.getRespuestas().size();i++){
+            pregunta.getRespuestas().get(i).imprimirRespuestas();
+        }
+    }
+
+
+
+    /**
+     *
      * @param id
      * @param respuesta
      * @return boolean
@@ -237,4 +286,46 @@ public class Stack {
         }
     }
 
+    private void aplicarDescuento(Usuario donante, int puntajeResta){
+        int i;
+        for(i=0;i<usuarios.size();i++){
+            if(usuarios.get(i) == donante){
+                this.usuarios.get(i).anadirReputacion(-puntajeResta);
+            }
+        }
+    }
+
+    private void entregarReward(Pregunta pregunta, Usuario premiado){
+        int i, recompensa=0;
+        ArrayList<Integer> quitar=new ArrayList<>();
+        if(retenidos.size()>=1) {
+            for (i = 0; i < retenidos.size(); i++) {
+                if (retenidos.get(i).getQuestion() == pregunta) {
+                    recompensa += retenidos.get(i).getPuntajeRetenido();
+                    //retenidos.get(i).getUser().anadirReputacion(-retenidos.get(i).getPuntajeRetenido());
+                    aplicarDescuento(retenidos.get(i).getUser(), retenidos.get(i).getPuntajeRetenido());
+                    quitar.add(i);
+                }
+            }
+
+            for (i = 0; i < quitar.size(); i++) {
+                //quitamos a los que tenían puntaje retenido ya que se les descontó el puntaje retenido.
+
+                this.retenidos.remove(quitar.get(i));
+            }
+        }
+        else{
+
+            recompensa=pregunta.getRecompensa();
+        }
+
+        premiado.anadirReputacion(recompensa+15);//se añaden 15 puntos porque la respuesta fue aceptada.
+    }
+
+    public void accept(Pregunta pregunta, Respuesta respuesta){
+        if(pregunta.getAutor()==activos.get(activos.size()-1)){
+            entregarReward(pregunta,respuesta.getAutor());
+            activos.get(activos.size()-1).anadirReputacion(2-pregunta.getRecompensa());//se agregan 2 puntos al usuario por aceptar la respuesta
+        }
+    }
 }
