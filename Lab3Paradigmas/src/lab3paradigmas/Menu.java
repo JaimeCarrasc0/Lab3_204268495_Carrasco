@@ -3,6 +3,7 @@ package lab3paradigmas;
 import javax.swing.plaf.metal.MetalToolTipUI;
 import java.security.Key;
 import java.sql.SQLOutput;
+import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -116,235 +117,244 @@ public class Menu{
         Stack stack=new Stack(usuarios,preguntas,activos);
         Scanner input= new Scanner(System.in);
         int opcion;
-        System.out.println("Bienvenido al sistema de preguntas y respuestas\n1)Iniciar Sesión\n2)Registrarse\n3)Salir");
-        System.out.println("Ingrese su opción:");
-        opcion=input.nextInt();
+        //System.out.println("Bienvenido al sistema de preguntas y respuestas\n1)Iniciar Sesión\n2)Registrarse\n3)Salir");
+        //System.out.println("Ingrese su opción:");
+        //opcion=input.nextInt();
+        System.out.println("Bienvenido al sistema de preguntas y respuestas");
 
         Usuario usuario;
         String user="";
         String clave;
         Scanner userInput= new Scanner(System.in);
 
-        int key=1;
-        while (key==1){
-            switch (opcion) {
-                case 1:
-                    //Scanner userInput= new Scanner(System.in);
-                    System.out.println("\nIngrese su nombre de usuario: ");
-                    user = userInput.nextLine();
-                    boolean aux = false;
+        int llave=1,key;
+        while (llave==1) {
+            key=1;
+            while (key == 1) {
+                System.out.println("1)Iniciar Sesión\n2)Registrarse\n3)Salir");
+                System.out.println("Ingrese su opción:");
+                opcion = input.nextInt();
 
-                    while (!aux) {
-                        if (stack.existeUsuario(user)) {
-                            Scanner passInput = new Scanner(System.in);
-                            System.out.println("Ingrese su contraseña: ");
-                            clave = passInput.nextLine();
+                switch (opcion) {
+                    case 1:
+                        //Scanner userInput= new Scanner(System.in);
+                        System.out.println("\nIngrese su nombre de usuario: ");
+                        user = userInput.nextLine();
+                        boolean aux = false;
 
-                            aux = stack.login(user, clave);
-                            if (aux) {
-                                System.out.println("Inicio de sesión exitoso!");
-                                break;
+                        while (!aux) {
+                            if (stack.existeUsuario(user)) {
+                                Scanner passInput = new Scanner(System.in);
+                                System.out.println("Ingrese su contraseña: ");
+                                clave = passInput.nextLine();
+
+                                aux = stack.login(user, clave);
+                                if (aux) {
+                                    System.out.println("Inicio de sesión exitoso!");
+                                    break;
+                                } else {
+                                    clave = "";
+                                    System.out.println("Inicio de sesión incorrecto\n");
+                                }
                             } else {
-                                clave = "";
-                                System.out.println("Inicio de sesión incorrecto\n");
+                                System.out.println("Usuario no existe, intente nuevamente\nIngrese su nombre de usuario: ");
+                                user = userInput.nextLine();
                             }
-                        } else {
-                            System.out.println("Usuario no existe, intente nuevamente\nIngrese su nombre de usuario: ");
-                            user = userInput.nextLine();
                         }
-                    }
-                    //verificar inicio de sesión
-                    break;
-
-                case 2:
-                    //Scanner userInput= new Scanner(System.in);
-                    System.out.println("\nIngrese un nombre de usuario: ");
-                    user = userInput.nextLine();
-
-                    if (stack.existeUsuario(user)) {
-                        System.out.println("El nombre de usuario ya existe.\nInicie sesión o Registrese con otro nombre.");
+                        key = 0;
+                        //verificar inicio de sesión
                         break;
-                    }
-                    //verificar si existe usuario
-                    //si no existe el usuario, crearlo
+
+                    case 2:
+                        //Scanner userInput= new Scanner(System.in);
+                        System.out.println("\nIngrese un nombre de usuario: ");
+                        user = userInput.nextLine();
+
+                        if (stack.existeUsuario(user)) {
+                            System.out.println("El nombre de usuario ya existe.\nInicie sesión o Registrese con otro nombre.");
+                            break;
+                        }
+                        //verificar si existe usuario
+                        //si no existe el usuario, crearlo
 
 
-                    Scanner passInput = new Scanner(System.in);
-                    System.out.println("\nIngrese su contraseña: ");
-                    clave = passInput.nextLine();
+                        Scanner passInput = new Scanner(System.in);
+                        System.out.println("\nIngrese su contraseña: ");
+                        clave = passInput.nextLine();
 
-                    usuario = new Usuario(user, clave, 0);
+                        usuario = new Usuario(user, clave, 0);
 
-                    stack.registrarUsuario(usuario);
+                        stack.registrarUsuario(usuario);
 
-                    System.out.println("Usuario creado con éxito");
+                        System.out.println("Usuario creado con éxito");
 
-                    //usuario.imprimirDatos();
+                        //usuario.imprimirDatos();
+                        key = 0;
+                        break;
 
+                    case 3:
+                        key = 0;
+                        System.exit(0);
+                        break;
 
-                    break;
+                    default:
+                        System.out.println("Error, no existe esa opción\n");
+                        break;
+                }
 
-                case 3:
-                    key=0;
-                    System.exit(0);
-                    break;
-
-                default:
-                    System.out.println("Error, no existe esa opción\n");
-                    break;
             }
 
 
+            key = 1;
+            while (key == 1) {
 
 
+                /*                                                                aquÃ­ â†“ deberÃ­a ir el usuario que estÃ¡ utilizando la app*/
+                System.out.println("### SISTEMA DE PREGUNTAS Y RESPUESTAS ###\n## Registrado como:" + user + " ##\nEscoja su opción:\n1. Agregar nueva pregunta\n2. Responder pregunta\n3. Dar recompensa\n4. Aceptar respuesta\n5. Cerrar sesión\n6. Salir del programa\n");
+                System.out.println("INTRODUZCA SU OPCIÓN: ");
+                /*
+                ### SISTEMA DE PREGUNTAS Y RESPUESTAS ###
+                ## Registrado como: User123 ##
+                Escoja su opción:
+                1. Agregar nueva pregunta
+                2. Responder pregunta
+                3. Dar recompensa
+                4. Aceptar respuesta
+                5. Cerrar sesión
+                6. Salir del programa
+                INTRODUZCA SU OPCIÓN: _
+                */
+                opcion = input.nextInt();
+
+                switch (opcion) {
+
+                    case 1:
+                        /*Agregar nueva pregunta*/
+                        Scanner titleInput = new Scanner(System.in);
+                        Scanner questionInput = new Scanner(System.in);
+                        Scanner tagSelector = new Scanner(System.in);
+
+                        String titulo, pregunta;
+                        int ingreso = 0;
+                        Etiquetas tags = new Etiquetas();
 
 
-            /*                                                                aquÃ­ â†“ deberÃ­a ir el usuario que estÃ¡ utilizando la app*/
-            System.out.println("### SISTEMA DE PREGUNTAS Y RESPUESTAS ###\n## Registrado como:" + user + " ##\nEscoja su opción:\n1. Agregar nueva pregunta\n2. Responder pregunta\n3. Dar recompensa\n4. Aceptar respuesta\n5. Cerrar sesión\n6. Salir del programa\n");
-            System.out.println("INTRODUZCA SU OPCIÓN: ");
-            /*
-            ### SISTEMA DE PREGUNTAS Y RESPUESTAS ###
-            ## Registrado como: User123 ##
-            Escoja su opción:
-            1. Agregar nueva pregunta
-            2. Responder pregunta
-            3. Dar recompensa
-            4. Aceptar respuesta
-            5. Cerrar sesión
-            6. Salir del programa
-            INTRODUZCA SU OPCIÓN: _
-            */
-            opcion = input.nextInt();
+                        System.out.println("Ingrese el título de la pregunta: ");
+                        titulo = titleInput.nextLine();
+                        System.out.println("Ingrese su pregunta: ");
+                        pregunta = questionInput.nextLine();
 
-            switch (opcion) {
+                        System.out.println("Seleccione al menos 1 etiqueta para su pregunta\n");
+                        tagStack.imprimirTags();
 
-                case 1:
-                    /*Agregar nueva pregunta*/
-                    Scanner titleInput=new Scanner(System.in);
-                    Scanner questionInput= new Scanner(System.in);
-                    Scanner tagSelector=new Scanner(System.in);
-
-                    String titulo, pregunta;
-                    int ingreso=0;
-                    Etiquetas tags=new Etiquetas();
-
-
-                    System.out.println("Ingrese el título de la pregunta: ");
-                    titulo=titleInput.nextLine();
-                    System.out.println("Ingrese su pregunta: ");
-                    pregunta=questionInput.nextLine();
-
-                    System.out.println("Seleccione al menos 1 etiqueta para su pregunta\n");
-                    tagStack.imprimirTags();
-
-                    while(ingreso!=0 || tags.getTags().size()<tagStack.getTags().size()){
-                        System.out.println("Seleccione su etiqueta\n si no desea añadir más ingrese 0");
-                        ingreso=tagSelector.nextInt();
-                        if(ingreso!=0){
-                            tags.anadirTags(tagStack.getTags().get(ingreso-1),tagStack.getDescripcion().get(ingreso-1));
+                        while (ingreso != 0 || tags.getTags().size() < tagStack.getTags().size()) {
+                            System.out.println("Seleccione su etiqueta\n si no desea añadir más ingrese 0");
+                            ingreso = tagSelector.nextInt();
+                            if (ingreso != 0) {
+                                tags.anadirTags(tagStack.getTags().get(ingreso - 1), tagStack.getDescripcion().get(ingreso - 1));
+                            } else {
+                                break;
+                            }
                         }
-                        else {
-                            break;
-                        }
-                    }
 
-                    stack.ask(titulo,pregunta,tags);
+                        stack.ask(titulo, pregunta, tags);
 
-                    //stack.imprimirPreguntas();
+                        //stack.imprimirPreguntas();
 
-                    break;
+                        break;
 
-                case 2:
-                    /*Responder pregunta*/
-                    Scanner idInput= new Scanner(System.in);
-                    Scanner respuestaInput= new Scanner(System.in);
-                    boolean aux;
-                    int idPregunta;
-                    String respuesta="";
-
-                    stack.imprimirPreguntas();
-
-                    do{
-                        System.out.println("\nIngrese el ID de la pregunta que desea responder: ");
-                        idPregunta=idInput.nextInt();
-
-                        System.out.println("Ingrese su respuesta: ");
-                        respuesta=respuestaInput.nextLine();
-
-                        aux=stack.answer(idPregunta,respuesta);
-
-                    }while (!aux);
-
-
-
-                    break;
-
-                case 3:
-                    /*Dar recompensa*/
-                    if(stack.getActivos().get(stack.getActivos().size()-1).getReputacion()>0) {
-                        Scanner idPregInput = new Scanner(System.in);
-                        Scanner recomInput = new Scanner(System.in);
-                        int idPreg, recom;
-                        Pregunta questionAux;
+                    case 2:
+                        /*Responder pregunta*/
+                        Scanner idInput = new Scanner(System.in);
+                        Scanner respuestaInput = new Scanner(System.in);
+                        boolean aux;
+                        int idPregunta;
+                        String respuesta = "";
 
                         stack.imprimirPreguntas();
 
-                        System.out.println("Ingrese el ID de la pregunta que desea recompensar: ");
+                        do {
+                            System.out.println("\nIngrese el ID de la pregunta que desea responder: ");
+                            idPregunta = idInput.nextInt();
+
+                            System.out.println("Ingrese su respuesta: ");
+                            respuesta = respuestaInput.nextLine();
+
+                            aux = stack.answer(idPregunta, respuesta);
+
+                        } while (!aux);
+
+
+                        break;
+
+                    case 3:
+                        /*Dar recompensa*/
+                        if (stack.getActivos().get(stack.getActivos().size() - 1).getReputacion() > 0) {
+                            Scanner idPregInput = new Scanner(System.in);
+                            Scanner recomInput = new Scanner(System.in);
+                            int idPreg, recom;
+                            Pregunta questionAux;
+
+                            stack.imprimirPreguntas();
+
+                            System.out.println("Ingrese el ID de la pregunta que desea recompensar: ");
+                            idPreg = idPregInput.nextInt();
+                            questionAux = stack.getPreguntas().get(idPreg);
+
+                            System.out.println("Ingrese la cantidad de puntos que desea entregar: ");
+                            recom = recomInput.nextInt();
+
+                            stack.reward(questionAux, recom);
+                        } else {
+                            System.out.println("No puedes ofrecer recompensas, tu reputación es demasiado baja.");
+                        }
+                        break;
+
+                    case 4:
+                        /*Aceptar respuesta*/
+                        Scanner idPregInput = new Scanner(System.in);
+                        Scanner idResInput = new Scanner(System.in);
+                        int idPreg, idRes;
+                        Pregunta pregAux;
+                        Respuesta resAux;
+
+                        stack.imprimirPreguntas(stack.getActivos().get(stack.getActivos().size() - 1));
+
+                        System.out.println("Ingrese el id de la pregunta: ");
                         idPreg = idPregInput.nextInt();
-                        questionAux=stack.getPreguntas().get(idPreg);
+                        pregAux = stack.getPreguntas().get(idPreg);
 
-                        System.out.println("Ingrese la cantidad de puntos que desea entregar: ");
-                        recom=recomInput.nextInt();
+                        stack.imprimirRespuestas(pregAux);
 
-                        stack.reward(questionAux,recom);
-                    }
-                    else{
-                        System.out.println("No puedes ofrecer recompensas, tu reputación es demasiado baja.");
-                    }
-                    break;
+                        System.out.println("Ingrese el id de la respuesta que desea aceptar: ");
+                        idRes = idResInput.nextInt();
 
-                case 4:
-                    /*Aceptar respuesta*/
-                    Scanner idPregInput =new Scanner(System.in);
-                    Scanner idResInput =new Scanner(System.in);
-                    int idPreg,idRes;
-                    Pregunta pregAux;
-                    Respuesta resAux;
+                        resAux = pregAux.getRespuestas().get(idRes);
+                        //resAux.imprimirRespuestas();
 
-                    stack.imprimirPreguntas(stack.getActivos().get(stack.getActivos().size()-1));
+                        stack.accept(pregAux, resAux);
 
-                    System.out.println("Ingrese el id de la pregunta: ");
-                    idPreg=idPregInput.nextInt();
-                    pregAux=stack.getPreguntas().get(idPreg);
+                        break;
 
-                    stack.imprimirRespuestas(pregAux);
+                    case 5:
+                        /*Cerrar SesiÃ³n*/
+                        key = 0;
+                        //menu();
+                        stack.logout(user);
+                        break;
 
-                    System.out.println("Ingrese el id de la respuesta que desea aceptar: ");
-                    idRes=idResInput.nextInt();
+                    case 6:
+                        /*Salir del programa*/
+                        key = 0;
+                        llave=0;
+                        break;
 
-                    resAux=pregAux.getRespuestas().get(idRes);
-                    //resAux.imprimirRespuestas();
-
-                    stack.accept(pregAux,resAux);
-
-                    break;
-
-                case 5:
-                    /*Cerrar SesiÃ³n*/
-                    key=0;
-                    stack.logout(user);
-                    break;
-
-                case 6:
-                    /*Salir del programa*/
-                    key=0;
-                    System.exit(0);
-                    break;
-
-                default:
-                    System.out.println("Error, no existe esa opciÃ³n\n");
-                    break;
+                    default:
+                        System.out.println("Error, no existe esa opción\n");
+                        break;
+                }
             }
         }
+        System.exit(0);
     }
 }
