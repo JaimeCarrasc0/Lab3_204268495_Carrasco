@@ -156,7 +156,8 @@ public class Stack {
     public void imprimirPreguntas(){
         int i,j;
         for(i=0;i<preguntas.size();i++){
-            System.out.println("\n\nID #"+preguntas.get(i).getID()+"\n");
+            System.out.println("════════════════════════════════════════════════════════════════════");
+            System.out.println("\nID #"+preguntas.get(i).getID());
             System.out.println("Titulo: "+preguntas.get(i).getTitulo());
             for(j=0;j<preguntas.get(i).getEtiquetas().getTags().size();j++){
                 System.out.println("["+preguntas.get(i).getEtiquetas().getTags().get(j)+"]: "+preguntas.get(i).getEtiquetas().getDescripcion().get(j)+"\n");
@@ -190,15 +191,20 @@ public class Stack {
      *
      * @param id
      * @param respuesta
+     * @return boolean
      */
     public boolean answer(int id, String respuesta){
-        if (id<preguntas.size()){
-            int idRes=preguntas.get(id).getRespuestas().size();
-            Respuesta res=new Respuesta(idRes, activos.get(activos.size()-1),respuesta);
-            preguntas.get(id).anadirRespuesta(res);
-            return true;
+        if (id<preguntas.size()) {
+            if (preguntas.get(id).getEstado()) {
+                int idRes = preguntas.get(id).getRespuestas().size();
+                Respuesta res = new Respuesta(idRes, activos.get(activos.size() - 1), respuesta);
+                preguntas.get(id).anadirRespuesta(res);
+                return true;
+            } else {
+                System.out.println("La duda que intentas responder, ya está resuelta.");
+                return false;
+            }
         }
-
         System.out.println("Pregunta no existente! intentelo de nuevo.");
         return false;
 

@@ -65,8 +65,8 @@ public class Respuesta {
      *
      */
     public void imprimirRespuestas(){
-        System.out.println("\n\nR #"+ID+"\n");
-        System.out.println("Autor: "+autor.getUser()+"\t Fecha: "+fecha+"\n");
-        System.out.println("Respuesta:\n"+respuesta);
+        //System.out.println("\tR #"+ID);
+        System.out.println("R #"+ID+"\tAutor: "+autor.getUser()+"\t Fecha: "+fecha);
+        System.out.println("\tRespuesta:\n\t\t"+respuesta);
     }
 }
