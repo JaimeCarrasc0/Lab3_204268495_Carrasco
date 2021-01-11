@@ -255,6 +255,7 @@ public class Menu{
                     break;
 
                 case 2:
+                    /*Responder pregunta*/
                     Scanner idInput= new Scanner(System.in);
                     Scanner respuestaInput= new Scanner(System.in);
                     boolean aux;
@@ -275,11 +276,31 @@ public class Menu{
                     }while (!aux);
 
 
-                    /*Responder pregunta*/
+
                     break;
 
                 case 3:
                     /*Dar recompensa*/
+                    if(stack.getActivos().get(stack.getActivos().size()-1).getReputacion()>0) {
+                        Scanner idPregInput = new Scanner(System.in);
+                        Scanner recomInput = new Scanner(System.in);
+                        int idPreg, recom;
+                        Pregunta questionAux;
+
+                        stack.imprimirPreguntas();
+
+                        System.out.println("Ingrese el ID de la pregunta que desea recompensar: ");
+                        idPreg = idPregInput.nextInt();
+                        questionAux=stack.getPreguntas().get(idPreg);
+
+                        System.out.println("Ingrese la cantidad de puntos que desea entregar: ");
+                        recom=recomInput.nextInt();
+
+                        stack.reward(questionAux,recom);
+                    }
+                    else{
+                        System.out.println("No puedes ofrecer recompensas, tu reputación es demasiado baja.");
+                    }
                     break;
 
                 case 4:

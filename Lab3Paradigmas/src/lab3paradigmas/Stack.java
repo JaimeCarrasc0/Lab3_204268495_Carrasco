@@ -13,6 +13,7 @@ public class Stack {
     private ArrayList<Usuario> usuarios;
     private ArrayList<Pregunta> preguntas;
     private ArrayList<Usuario> activos;
+    private ArrayList<Retenidos> retenidos;
 
     /**
      * @param usuarios
@@ -209,4 +210,31 @@ public class Stack {
         return false;
 
     }
+
+    /**
+     *
+     * @param autor
+     * @param ptjeRet
+     * @param pregunta
+     */
+    public void anadirRetencion(Usuario autor, int ptjeRet, Pregunta pregunta){
+        Retenidos retencion= new Retenidos(autor, ptjeRet, pregunta);
+        this.retenidos.add(retencion);
+    }
+
+    /**
+     *
+     * @param pregunta
+     * @param recompensa
+     */
+    public void reward(Pregunta pregunta, int recompensa){
+        Usuario persona=activos.get(activos.size()-1);
+        if(recompensa<=persona.getReputacion()){
+            anadirRetencion(persona,recompensa,pregunta);
+        }
+        else{
+            System.out.println("No es posible ofrecer esa cantidad de recompensa, intentalo más tarde.");
+        }
+    }
+
 }
