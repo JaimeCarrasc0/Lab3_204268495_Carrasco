@@ -117,4 +117,12 @@ public class Pregunta {
     public Date getFecha() {
         return fecha;
     }
+
+    /**
+     *
+     * @param respuesta
+     */
+    public void anadirRespuesta(Respuesta respuesta){
+        this.respuestas.add(respuesta);
+    }
 }

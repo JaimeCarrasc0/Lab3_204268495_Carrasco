@@ -161,7 +161,7 @@ public class Stack {
             for(j=0;j<preguntas.get(i).getEtiquetas().getTags().size();j++){
                 System.out.println("["+preguntas.get(i).getEtiquetas().getTags().get(j)+"]: "+preguntas.get(i).getEtiquetas().getDescripcion().get(j)+"\n");
             }
-            System.out.println("Pregunta: "+preguntas.get(i).getPregunta() + "\tRecompensa: "+preguntas.get(i).getRecompensa());
+            System.out.println("Pregunta: "+preguntas.get(i).getPregunta() + "\t\tRecompensa: "+preguntas.get(i).getRecompensa());
             System.out.println("Fecha consulta: "+preguntas.get(i).getFecha());
             System.out.println("Pregunta realizada por: "+preguntas.get(i).getAutor().getUser());
 
@@ -170,6 +170,9 @@ public class Stack {
             }
             else{
                 System.out.println("Respuestas: ");
+                for(j=0;j<preguntas.get(i).getRespuestas().size();j++){
+                    preguntas.get(i).getRespuestas().get(j).imprimirRespuestas();
+                }
                 //realizar print respuestas en clase respuestas xD
             }
             if (preguntas.get(i).getEstado()){
@@ -181,5 +184,23 @@ public class Stack {
 
             //System.out.println(preguntas.get(i));
         }
+    }
+
+    /**
+     *
+     * @param id
+     * @param respuesta
+     */
+    public boolean answer(int id, String respuesta){
+        if (id<preguntas.size()){
+            int idRes=preguntas.get(id).getRespuestas().size();
+            Respuesta res=new Respuesta(idRes, activos.get(activos.size()-1),respuesta);
+            preguntas.get(id).anadirRespuesta(res);
+            return true;
+        }
+
+        System.out.println("Pregunta no existente! intentelo de nuevo.");
+        return false;
+
     }
 }

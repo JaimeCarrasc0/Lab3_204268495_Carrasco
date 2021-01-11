@@ -14,17 +14,34 @@ public class Usuario{
 		this.pass=pass;
 		this.reputacion=reputacion;
 	}
-        
+
+	/**
+	 *
+	 */
 	public void imprimirDatos(){
 		System.out.println("User: "+username+"\nPass: "+pass+"\nReputación: "+reputacion);
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public String getUser(){
 		return username;
 	}
+
+	/**
+	 *
+	 * @return
+	 */
 	public String getPass(){
 		return pass;
 	}
+
+	/**
+	 *
+	 * @return
+	 */
 	public int getReputacion(){
 		return reputacion;
 	}

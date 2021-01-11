@@ -28,20 +28,45 @@ public class Respuesta {
         this.respuesta=contenido;
     }
 
+
+    /**
+     *
+     * @return
+     */
     public int getID() {
         return ID;
     }
 
+    /**
+     *
+     * @return
+     */
     public Usuario getAutor() {
         return autor;
     }
 
+    /**
+     *
+     * @return
+     */
     public Date getFecha() {
         return fecha;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getRespuesta() {
         return respuesta;
     }
 
+    /**
+     *
+     */
+    public void imprimirRespuestas(){
+        System.out.println("\n\nR #"+ID+"\n");
+        System.out.println("Autor: "+autor.getUser()+"\t Fecha: "+fecha+"\n");
+        System.out.println("Respuesta:\n"+respuesta);
+    }
 }

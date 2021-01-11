@@ -2,6 +2,7 @@ package lab3paradigmas;
 
 import javax.swing.plaf.metal.MetalToolTipUI;
 import java.security.Key;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -249,11 +250,31 @@ public class Menu{
 
                     stack.ask(titulo,pregunta,tags);
 
-                    stack.imprimirPreguntas();
+                    //stack.imprimirPreguntas();
 
                     break;
 
                 case 2:
+                    Scanner idInput= new Scanner(System.in);
+                    Scanner respuestaInput= new Scanner(System.in);
+                    boolean aux;
+                    int idPregunta;
+                    String respuesta="";
+
+                    stack.imprimirPreguntas();
+
+                    do{
+                        System.out.println("\nIngrese el ID de la pregunta que desea responder: ");
+                        idPregunta=idInput.nextInt();
+
+                        System.out.println("Ingrese su respuesta: ");
+                        respuesta=respuestaInput.nextLine();
+
+                        aux=stack.answer(idPregunta,respuesta);
+
+                    }while (!aux);
+
+
                     /*Responder pregunta*/
                     break;
 
