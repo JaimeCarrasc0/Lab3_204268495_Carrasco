@@ -1,9 +1,6 @@
 package lab3paradigmas;
 
-
-import javax.sound.midi.Soundbank;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Esta clase define al stack, unidad fundamental para organizar las preguntas, usuarios y demás.
@@ -16,10 +13,12 @@ public class Stack {
     private ArrayList<Retenidos> retenidos;
 
     /**
-     * @param usuarios
-     * @param preguntas
-     * @param activos
+     * Constructor para la clase stack
+     * @param usuarios arreglo del tipo Usuario
+     * @param preguntas arreglo del tipo Pregunta
+     * @param activos arreglo del tipo activos
      */
+
     public Stack(ArrayList<Usuario> usuarios, ArrayList<Pregunta> preguntas, ArrayList<Usuario> activos) {
         this.usuarios = usuarios;
         this.preguntas = preguntas;
@@ -28,15 +27,18 @@ public class Stack {
     }
 
     /**
-     * @return
+     * getter de usuarios
+     * @return arreglo con los usuarios del stack
+     * NO LA LLAMANAAAAAAAAAAa
      */
     public ArrayList<Usuario> getUsuarios() {
         return usuarios;
     }
 
     /**
-     * @param username
-     * @return
+     * getter de los datos del usuario
+     * @param username nombre del usuario que se desea obtener datos
+     * @return los datos del usuario, o null si es que no existe el usuario
      */
     private Usuario getUserData(String username) {
         int i;
@@ -49,22 +51,25 @@ public class Stack {
     }
 
     /**
-     * @return
+     * getter de las preguntas
+     * @return el arreglo de las preguntas
      */
     public ArrayList<Pregunta> getPreguntas() {
         return preguntas;
     }
 
     /**
-     * @return
+     * getter de los usuarios activos
+     * @return el arreglo de los usuarios activos
      */
     public ArrayList<Usuario> getActivos() {
         return activos;
     }
 
     /**
-     * @param user
-     * @return
+     * verificar la existencia de un usuario
+     * @param user nombre de usuario
+     * @return booleano
      */
     public Boolean existeUsuario(String user) {
         int i;
@@ -79,16 +84,18 @@ public class Stack {
     }
 
     /**
-     * @param nuevoUsuario
+     * Añadir un usuario nuevo al stack
+     * @param nuevoUsuario un usuario
      */
     public void registrarUsuario(Usuario nuevoUsuario) {
         this.usuarios.add(nuevoUsuario);
     }
 
     /**
-     * @param user
-     * @param pass
-     * @return
+     * Login
+     * @param user nombre del usuario
+     * @param pass contraseña del usuario
+     * @return booleano, este indica si se logra iniciar sesión o no.
      */
     public boolean login(String user, String pass) {
         int i;
@@ -110,7 +117,8 @@ public class Stack {
     }
 
     /**
-     * @param user
+     * logout
+     * @param user nombre de usuario.
      */
     public void logout(String user) {
         int i;
@@ -133,13 +141,12 @@ public class Stack {
     Estado //True=pregunta abierta, False=pregunta cerrada
     Recompensa
     */
-    //public void ask (String titulo,
 
     /**
-     *
-     * @param titulo
-     * @param pregunta
-     * @param etiquetas
+     * ask
+     * @param titulo titulo de la pregunta en String
+     * @param pregunta contenido de la pregunta en string
+     * @param etiquetas Etiquetas seleccionadas para la pregunta
      */
     public void ask(String titulo, String pregunta, Etiquetas etiquetas) {
         //Date fechaActual = new Date();
@@ -153,7 +160,7 @@ public class Stack {
     }
 
     /**
-     *
+     * Imprimir las preguntas del stack
      */
     public void imprimirPreguntas(){
         int i,j;
@@ -190,9 +197,8 @@ public class Stack {
     }
 
     /**
-     *
-     * @param autor
-     * @override
+     * Imprimir las preguntas del stack, en este caso, imprime todas las que corresponden a un autor específico
+     * @param autor autor de las preguntas
      */
     public void imprimirPreguntas(Usuario autor){
         int i,j;
@@ -227,6 +233,10 @@ public class Stack {
         }
     }
 
+    /**
+     * Imprime las respuestas que corresponden a una pregunta
+     * @param pregunta la pregunta que se desea imprimir las respuestas
+     */
     public void imprimirRespuestas(Pregunta pregunta){
         int i;
         System.out.println("Respuestas: ");
@@ -238,10 +248,10 @@ public class Stack {
 
 
     /**
-     *
-     * @param id
-     * @param respuesta
-     * @return boolean
+     * answer
+     * @param id id de la pregunta
+     * @param respuesta contenido de la respuesta
+     * @return boolean sobre si se pudo contestar o no.
      */
     public boolean answer(int id, String respuesta){
         if (id<preguntas.size()) {
@@ -261,20 +271,20 @@ public class Stack {
     }
 
     /**
-     *
-     * @param autor
-     * @param ptjeRet
-     * @param pregunta
+     * se añade la retención de puntos al usuariio que ofrece recompensa
+     * @param autor autor del tipo Usuario
+     * @param ptjeRet puntaje que se retiene
+     * @param pregunta pregunta donde va a retenerse
      */
-    public void anadirRetencion(Usuario autor, int ptjeRet, Pregunta pregunta){
+    private void anadirRetencion(Usuario autor, int ptjeRet, Pregunta pregunta){
         Retenidos retencion= new Retenidos(autor, ptjeRet, pregunta);
         this.retenidos.add(retencion);
     }
 
     /**
-     *
-     * @param pregunta
-     * @param recompensa
+     * reward
+     * @param pregunta pregunta donde se entrega recompensa
+     * @param recompensa cantidad de puntaje que se entrega
      */
     public void reward(Pregunta pregunta, int recompensa){
         Usuario persona=activos.get(activos.size()-1);
@@ -286,6 +296,11 @@ public class Stack {
         }
     }
 
+    /**
+     * se aplica el descuento al usuario que ofreció recompensa
+     * @param donante el usuario que ofreció puntos
+     * @param puntajeResta el puntaje que se le quita
+     */
     private void aplicarDescuento(Usuario donante, int puntajeResta){
         int i;
         for(i=0;i<usuarios.size();i++){
@@ -295,6 +310,11 @@ public class Stack {
         }
     }
 
+    /**
+     * entrega la recompensa que se ofreció
+     * @param pregunta pregunta seleccionada
+     * @param premiado usuario que recibe el puntaje
+     */
     private void entregarReward(Pregunta pregunta, Usuario premiado){
         int i, recompensa=0;
         ArrayList<Integer> quitar=new ArrayList<>();
@@ -322,6 +342,11 @@ public class Stack {
         premiado.anadirReputacion(recompensa+15);//se añaden 15 puntos porque la respuesta fue aceptada.
     }
 
+    /**
+     * Accept
+     * @param pregunta pregunta que se desea aceptar la respuesta
+     * @param respuesta respuesta seleccionada para aceptar
+     */
     public void accept(Pregunta pregunta, Respuesta respuesta){
         if(pregunta.getAutor()==activos.get(activos.size()-1)){
             entregarReward(pregunta,respuesta.getAutor());

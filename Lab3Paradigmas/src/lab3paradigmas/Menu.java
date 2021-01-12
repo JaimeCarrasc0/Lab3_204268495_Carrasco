@@ -1,11 +1,6 @@
 package lab3paradigmas;
 
-import javax.swing.plaf.metal.MetalToolTipUI;
-import java.security.Key;
-import java.sql.SQLOutput;
-import java.sql.SQLSyntaxErrorException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Scanner;
 
 /**

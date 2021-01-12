@@ -11,9 +11,9 @@ public class Etiquetas {
     private ArrayList<String> descripcion;
 
     /**
-     *
-     * @param etiquetas
-     * @param desc
+     * consturctor de la clase etiquetas
+     * @param etiquetas arreglo con las etiquetas
+     * @param desc arreglo con las descripciones de las etiquetas
      */
     public Etiquetas(ArrayList<String> etiquetas, ArrayList<String> desc){
         this.tags=etiquetas;
@@ -21,26 +21,42 @@ public class Etiquetas {
     }
 
     /**
-     * @override
+     * Constructor con parámetros vacíos, esto define arreglos vacíos para ambos atributos
      */
     public Etiquetas(){
         this.tags=new ArrayList<>();
         this.descripcion=new ArrayList<>();
     }
 
+    /**
+     * Getter de etiquetas
+     * @return etiquetas en arreglo
+     */
     public ArrayList<String> getTags() {
         return tags;
     }
 
+    /**
+     * getter de las descripciones
+     * @return arreglo de descirpciones
+     */
     public ArrayList<String> getDescripcion() {
         return descripcion;
     }
 
+    /**
+     * añadir tags al objeto que instancia la clase
+     * @param etiqueta string con la etiqueta nueva
+     * @param descripcion string con la descripcion de la etiqueta nueva
+     */
     public void anadirTags(String etiqueta, String descripcion){
         this.tags.add(etiqueta);
         this.descripcion.add(descripcion);
     }
 
+    /**
+     * imprime los tags que existen en el objeto que instanci la clase
+     */
     public void imprimirTags(){
         int i;
         System.out.println("Etiquetas:\n");

@@ -21,6 +21,12 @@ public class Respuesta {
     //private fecha; debo averiguar como hacer esto xD
     private String respuesta;
 
+    /**
+     * Constructor de Respuesta
+     * @param id entero que maneja el id de la respuesta
+     * @param autor autor de la respuesta
+     * @param contenido contenido de la respuesta
+     */
     public Respuesta(int id, Usuario autor, String contenido){
         this.ID=id;
         this.autor=autor;
@@ -30,39 +36,31 @@ public class Respuesta {
 
 
     /**
-     *
-     * @return
+     * getter del id
+     * @return el id
      */
     public int getID() {
         return ID;
     }
 
     /**
-     *
-     * @return
+     * getter del autor
+     * @return el autor
      */
     public Usuario getAutor() {
         return autor;
     }
 
     /**
-     *
-     * @return
+     * getter de la fecha
+     * @return la fecha de la respuesta
      */
     public Date getFecha() {
         return fecha;
     }
 
     /**
-     *
-     * @return
-     */
-    public String getRespuesta() {
-        return respuesta;
-    }
-
-    /**
-     *
+     * imprime el contenido de la respuesta
      */
     public void imprimirRespuestas(){
         //System.out.println("\tR #"+ID);
